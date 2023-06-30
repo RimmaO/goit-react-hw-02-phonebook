@@ -14,19 +14,35 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   createContact = data => {
     const newContact = { ...data, id: nanoid() };
     console.log(newContact);
+
+    this.state.contacts.find(({ name }) => name === data.name)
+      ? alert(`${data.name} is already in contacts.`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, newContact],
+        }));
   };
 
   handleChangeFilter = ({ target }) => {
     this.setState({
       [target.name]: target.value,
     });
+  };
+
+  getFilterContacts = () => {
+    return this.state.contacts.filter(({ name }) =>
+      name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  };
+
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
   };
 
   render() {
@@ -40,7 +56,10 @@ export class App extends Component {
             value={this.state.filter}
             handleChangeFilter={this.handleChangeFilter}
           />
-          <ContactList contacts={this.state.contacts} />
+          <ContactList
+            contacts={this.getFilterContacts()}
+            deleteContact={this.deleteContact}
+          />
         </Section>
       </>
     );

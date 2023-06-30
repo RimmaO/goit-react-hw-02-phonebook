@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Button, Input, Text, Wrap } from './ContactForm.styled';
 
 class ContactForm extends Component {
   state = {
@@ -33,25 +34,25 @@ class ContactForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
-          <p>Name</p>
+        <Wrap>
+          <Text>Name</Text>
           <label>
-            <input
+            <Input
               onChange={this.handleChange}
               value={this.state.name}
               type="text"
               name="name"
               placeholder="Enter a contact name"
-              pattern="[A-Za-z0-9]+"
+              pattern="^\S.*[a-zA-Z\s]*$"
               title="Name may contain only letters, apostrophe, dash and spaces.For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
             />
           </label>
-        </div>
-        <div>
-          <p>Number</p>
+        </Wrap>
+        <Wrap>
+          <Text>Number</Text>
           <label>
-            <input
+            <Input
               onChange={this.handleChange}
               value={this.state.number}
               type="tel"
@@ -62,9 +63,9 @@ class ContactForm extends Component {
               required
             />
           </label>
-        </div>
+        </Wrap>
 
-        <button type="submit">Add contact</button>
+        <Button type="submit">Add contact</Button>
       </form>
     );
   }
