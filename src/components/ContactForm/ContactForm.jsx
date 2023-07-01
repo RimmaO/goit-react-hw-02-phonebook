@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Component } from 'react';
 import { Button, Input, Text, Wrap } from './ContactForm.styled';
 
@@ -43,7 +45,7 @@ class ContactForm extends Component {
               type="text"
               name="name"
               placeholder="Enter a contact name"
-              pattern="^\S.*[a-zA-Z\s]*$"
+              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces.For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
             />
@@ -72,3 +74,5 @@ class ContactForm extends Component {
 }
 
 export default ContactForm;
+
+ContactForm.propTypes = { createContact: PropTypes.func.isRequired };
